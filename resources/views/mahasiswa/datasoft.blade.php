@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Document Deleted</title>
 </head>
 <body>
     <center>
         <p>
-            <button type="button" onclick="window.location='/mhs/tambah'">
-                tambah
-            </button>
-            <button type="button" onclick="window.location='/mhs/datasoft'">
-                Tampil data softdeleted
+            <button type="button" onclick="window.location='/mhs/index'">
+                &laquo; kembali
             </button>
         </p>
         @if(session('msg'))
@@ -39,17 +36,7 @@
                         <td>{{ $d->mhstelp }}</td>
                         <td>{{ $d->mhsalamat }}</td>
                         <td>
-                            <button type="button" onclick="window.location='/mhs/edit/{{ $d->mhsnim }}'">
-                                Edit
-                            </button>
 
-                            <form method="POST" action="/mhs/hapus/{{ $d->mhsnim }}" style="display: inline;" onsubmit="return hapusData()">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit">
-                                    Hapus
-                                </button>
-                            </form>
                         </td>
                     </tr>
                 @endforeach

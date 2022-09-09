@@ -23,5 +23,9 @@ Route::get('/', function () {
 Route::controller(Mhs::class)->group(function () {
     Route::get('/mhs/index', 'index');
     Route::get('/mhs/tambah', 'add');
+    Route::get('/mhs/datasoft', 'datasoft');
     Route::post('/mhs/simpan', 'save');
+    Route::get('/mhs/edit/{nim}', 'edit');
+    Route::put('/mhs/update', 'update');
+    Route::delete('/mhs/hapus/{nim}', 'hapus');
 });
