@@ -92,4 +92,14 @@ class Mhs extends Controller
         Modelmhs::find($nim)->delete();
         return redirect()->back();
     }
+
+    public function restore($nim){
+        Modelmhs::withTrashed()->find($nim)->restore();
+        return redirect()->back();
+    }
+
+    public function forceDelete($nim) {
+        Modelmhs::onlyTrashed()->find($nim)->forceDelete();
+        return redirect()->back();
+    }
 }

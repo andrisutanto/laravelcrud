@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mhs;
+use App\Http\Controllers\Layout;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +15,17 @@ use App\Http\Controllers\Mhs;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome', [
-        'name' => 'andri'
-    ]);
+// Route::get('/', function () {
+//     return view('welcome', [
+//         'name' => 'andri'
+//     ]);
+// });
+
+Route::get('/', [Layout::class, 'home']);
+
+Route::controller(Layout::class)->group(function (){
+    Route::get('/layout/home', 'home');
+    Route::get('/layout/index', 'index');
 });
 
 Route::controller(Mhs::class)->group(function () {
@@ -28,4 +36,9 @@ Route::controller(Mhs::class)->group(function () {
     Route::get('/mhs/edit/{nim}', 'edit');
     Route::put('/mhs/update', 'update');
     Route::delete('/mhs/hapus/{nim}', 'hapus');
+
+    Route::get('/mhs/restore/{nim}', 'restore');
+    Route::delete('/mhs/forceDelete/{nim}', 'forceDelete');
+
+
 });

@@ -36,7 +36,17 @@
                         <td>{{ $d->mhstelp }}</td>
                         <td>{{ $d->mhsalamat }}</td>
                         <td>
+                            <button type="button" onclick="restore('{{ $d->mhsnim }}')">
+                                Restore
+                            </button>
 
+                            <form method="POST" action="/mhs/forceDelete/{{ $d->mhsnim }}" style="display: inline;" onsubmit="return hapusData()">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">
+                                    Hapus Permanen
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -45,8 +55,16 @@
     </center>
 
     <script>
+        function restore(nim) {
+            pesan = confirm('Yakin data ini direstore?');
+            if(pesan){
+                window.location='/mhs/restore/' + nim
+            }
+                
+        }
+
         function hapusData() {
-            pesan = confirm('Yakin data ini dihapus?');
+            pesan = confirm('Yakin data ini dihapus permanen?');
             if(pesan)
                 return true;
             else return false;
