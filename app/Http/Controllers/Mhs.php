@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Modelmhs;
 use Illuminate\Http\Request;
 
@@ -36,21 +37,32 @@ class Mhs extends Controller
         $telp = $r->telp;
         $alamat = $r->alamat;
 
-        try{
+
+            // add validation
+            $validateData = $r->validate([
+                'nim' => 'required|unique:mahasiswa,mhsnim',
+                'nama' => 'required',
+                'telp' => 'required|numeric',
+                'alamat' => 'required',
+            ],
+            [
+                'nim.required' => 'NIM tidak boleh kosong',
+                'nim.unique' => 'NIM sudah ada',
+                'nama.required' => 'Nama tidak boleh kosong',
+            ]);
+
             $mhs = new Modelmhs;
             $mhs->mhsnim = $nim;
             $mhs->mhsnama = $nama;
             $mhs->mhstelp = $telp;
             $mhs->mhsalamat = $alamat;
             $mhs->save();
-    
+
             //echo "data saved";
             $r->session()->flash('msg', "data $nama saved");
             return redirect('/mhs/tambah');
 
-        }catch(Throwable $e) {
-            report($e);
-        }
+        
     }
 
     public function edit($nim){
@@ -78,7 +90,7 @@ class Mhs extends Controller
             $mhs->mhstelp = $telp;
             $mhs->mhsalamat = $alamat;
             $mhs->save();
-    
+
             //echo "data saved";
             $r->session()->flash('msg', "data $nama updated");
             return redirect('/mhs/index');
@@ -102,4 +114,5 @@ class Mhs extends Controller
         Modelmhs::onlyTrashed()->find($nim)->forceDelete();
         return redirect()->back();
     }
+
 }
