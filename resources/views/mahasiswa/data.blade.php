@@ -65,8 +65,7 @@
             @endforeach
         </tbody>
     </table>
-</center>
-
+    {{ $dataMhs->links() }}
 <script>
     function hapusData() {
         pesan = confirm('Yakin data ini dihapus?');

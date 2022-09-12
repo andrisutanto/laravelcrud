@@ -11,8 +11,14 @@ class Mhs extends Controller
     //
     public function index() {
 
+        // before pagination
+        // $data=[
+        //     'dataMhs' => Modelmhs::all()
+        // ];
+
+        //add pagination
         $data=[
-            'dataMhs' => Modelmhs::all()
+            'dataMhs' => Modelmhs::paginate(10)->onEachSide(2)->fragment('mahasiswa'),
         ];
 
         return View('mahasiswa.data', $data);
