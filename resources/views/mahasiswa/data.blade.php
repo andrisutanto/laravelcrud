@@ -34,10 +34,10 @@
     <table class="table table-sm table-bordered table-striped">
         <thead>
             <th>No</th>
-            <th>NIM</th>
-            <th>Nama</th>
-            <th>Telp</th>
-            <th>Alamat</th>
+            <th>@sortablelink('mhsnim','NIM')</th>
+            <th>@sortablelink('mhsnama','Nama Mahasiswa')</th>
+            <th>@sortablelink('mhstelp','Telp')</th>
+            <th>@sortablelink('mhsalamat','Alamat')</th>
             <th>Action</th>
         </thead>
         <tbody>
@@ -65,7 +65,9 @@
             @endforeach
         </tbody>
     </table>
-    {{ $dataMhs->links() }}
+    {{-- {{ $dataMhs->links() }} --}}
+
+    {!! $dataMhs->appends(Request::except('page'))->render() !!}
 <script>
     function hapusData() {
         pesan = confirm('Yakin data ini dihapus?');

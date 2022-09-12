@@ -18,7 +18,7 @@ class Mhs extends Controller
 
         //add pagination
         $data=[
-            'dataMhs' => Modelmhs::paginate(10)->onEachSide(2)->fragment('mahasiswa'),
+            'dataMhs' => Modelmhs::sortable()->paginate(10)->onEachSide(2)->fragment('mahasiswa'),
         ];
 
         return View('mahasiswa.data', $data);
