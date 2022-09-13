@@ -9,7 +9,19 @@ use Illuminate\Http\Request;
 class Mhs extends Controller
 {
     //
-    public function index() {
+    public function index(Request $request) {
+
+        //untuk searching
+        $cari = $request->query('cari');
+
+        if(!empty($cari)){
+            $dataMahasiswa = Modelmhs::sortable()
+            ->where('mahasiswa.mhsnim','like','%'.$cari.'%')
+            ->orwhere('mahasiswa.mhsnama','like','%'.$cari.'%')
+            ->paginate(10)->onEachSide(2)->fragment('mahasiswa');
+        }else{
+            $dataMahasiswa = Modelmhs::sortable()->paginate(10)->onEachSide(2)->fragment('mahasiswa');
+        }
 
         // before pagination
         // $data=[
@@ -17,11 +29,17 @@ class Mhs extends Controller
         // ];
 
         //add pagination
-        $data=[
-            'dataMhs' => Modelmhs::sortable()->paginate(10)->onEachSide(2)->fragment('mahasiswa'),
-        ];
+        // $data=[
+        //     'dataMhs' => Modelmhs::sortable()->paginate(10)->onEachSide(2)->fragment('mahasiswa'),
+        // ];
 
-        return View('mahasiswa.data', $data);
+        //return View('mahasiswa.data', $data);
+
+        //return nya diganti
+        return View('mahasiswa.data')->with([
+            'dataMhs' => $dataMahasiswa,
+            'cari' => $cari,
+        ]);
     }
 
     public function datasoft() {

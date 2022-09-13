@@ -31,6 +31,19 @@
             {{ session('msg') }}
         </p>
     @endif
+
+    <form method="GET">
+        <div class="form-group row">
+            <label for="" class="col-sm-2 col-form-label">
+                Cari Data
+            </label>
+
+            <div class="col-sm-10">
+                <input type="text" name="cari" id="cari" class="form-control" placeholder="Cari Data Disini" autofocus="true" value="{{ $cari }}">
+            </div>
+        </div>
+    </form>
+
     <table class="table table-sm table-bordered table-striped">
         <thead>
             <th>No</th>
@@ -41,9 +54,13 @@
             <th>Action</th>
         </thead>
         <tbody>
+            @php
+            $nomor = 1 + (($dataMhs->currentPage()-1) * $dataMhs->perPage());
+            @endphp
             @foreach ($dataMhs as $d)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    {{-- <td>{{ $loop->iteration }}</td> --}}
+                    <td>{{ $nomor++ }}</td>
                     <td>{{ $d->mhsnim }}</td>
                     <td>{{ $d->mhsnama }}</td>
                     <td>{{ $d->mhstelp }}</td>
